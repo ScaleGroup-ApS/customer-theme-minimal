@@ -3,95 +3,65 @@ import { useState } from "react";
 
 interface HeaderProps {
   siteName?: string;
-  menuItems?: Array<{
-    title: string;
-    url: string;
-    children?: Array<{ title: string; url: string }>;
-  }>;
 }
 
-export function Header({ siteName = "Site", menuItems = [] }: HeaderProps) {
+export function Header({ siteName = "Demo Virksomhed A/S" }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-surface/80 backdrop-blur-xl border-b border-border/50">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        {/* Logo / Site Title */}
+    <header className="sticky top-0 z-50 bg-white border-b border-[#e5e5e5]">
+      <div className="max-w-[1100px] mx-auto px-6 h-16 flex items-center justify-between">
         <Link
           to="/"
-          className="text-xl font-bold text-secondary tracking-tight hover:text-primary transition-colors"
+          className="text-base font-semibold text-[#111111] tracking-tight hover:opacity-70 transition-opacity"
         >
           {siteName}
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8">
-          {menuItems.map((item) => (
-            <NavLink key={item.url} href={item.url} label={item.title} />
-          ))}
-          {menuItems.length === 0 && (
-            <>
-              <NavLink href="/" label="Forside" />
-              <NavLink href="/om-os" label="Om os" />
-              <NavLink href="/kontakt" label="Kontakt" />
-            </>
-          )}
+        <nav className="hidden md:flex items-center gap-10">
+          <NavLink href="#ydelser" label="Ydelser" />
+          <NavLink href="#om-os" label="Om os" />
+          <NavLink href="#kontakt" label="Kontakt" />
         </nav>
 
-        {/* CTA Button (desktop) */}
         <div className="hidden md:block">
-          <Link
-            to="/kontakt"
-            className="inline-flex items-center px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-full hover:bg-primary-dark transition-all hover:shadow-lg hover:shadow-primary/25 active:scale-95"
+          <a
+            href="#kontakt"
+            className="inline-flex items-center px-5 py-2.5 bg-[#111111] text-white text-sm font-medium hover:opacity-85 transition-opacity"
           >
             Kontakt os
-          </Link>
+          </a>
         </div>
 
-        {/* Mobile Hamburger */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden p-2 rounded-lg hover:bg-surface-dim transition-colors"
+          className="md:hidden p-2 hover:opacity-70 transition-opacity"
           aria-label="Toggle menu"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
             {mobileOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
             )}
           </svg>
         </button>
       </div>
 
-      {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-surface border-t border-border/50 animate-fade-in-up">
-          <nav className="max-w-7xl mx-auto px-6 py-4 space-y-2">
-            {menuItems.length > 0
-              ? menuItems.map((item) => (
-                  <MobileNavLink
-                    key={item.url}
-                    href={item.url}
-                    label={item.title}
-                    onClick={() => setMobileOpen(false)}
-                  />
-                ))
-              : (
-                <>
-                  <MobileNavLink href="/" label="Forside" onClick={() => setMobileOpen(false)} />
-                  <MobileNavLink href="/om-os" label="Om os" onClick={() => setMobileOpen(false)} />
-                  <MobileNavLink href="/kontakt" label="Kontakt" onClick={() => setMobileOpen(false)} />
-                </>
-              )}
-            <div className="pt-2">
-              <Link
-                to="/kontakt"
+        <div className="md:hidden bg-white border-t border-[#e5e5e5]">
+          <nav className="max-w-[1100px] mx-auto px-6 py-4 flex flex-col gap-1">
+            <MobileLink href="#ydelser" label="Ydelser" onClick={() => setMobileOpen(false)} />
+            <MobileLink href="#om-os" label="Om os" onClick={() => setMobileOpen(false)} />
+            <MobileLink href="#kontakt" label="Kontakt" onClick={() => setMobileOpen(false)} />
+            <div className="pt-3">
+              <a
+                href="#kontakt"
                 onClick={() => setMobileOpen(false)}
-                className="block w-full text-center px-5 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors"
+                className="block text-center px-5 py-3 bg-[#111111] text-white text-sm font-medium"
               >
                 Kontakt os
-              </Link>
+              </a>
             </div>
           </nav>
         </div>
@@ -101,37 +71,24 @@ export function Header({ siteName = "Site", menuItems = [] }: HeaderProps) {
 }
 
 function NavLink({ href, label }: { href: string; label: string }) {
-  // Convert absolute WordPress URLs to relative paths
-  const to = href.startsWith("http") ? new URL(href).pathname : href;
-
   return (
-    <Link
-      to={to}
-      className="text-sm font-medium text-text-muted hover:text-text transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-primary after:transition-all hover:after:w-full"
+    <a
+      href={href}
+      className="text-sm font-medium text-[#444444] hover:text-[#111111] transition-colors"
     >
       {label}
-    </Link>
+    </a>
   );
 }
 
-function MobileNavLink({
-  href,
-  label,
-  onClick,
-}: {
-  href: string;
-  label: string;
-  onClick: () => void;
-}) {
-  const to = href.startsWith("http") ? new URL(href).pathname : href;
-
+function MobileLink({ href, label, onClick }: { href: string; label: string; onClick: () => void }) {
   return (
-    <Link
-      to={to}
+    <a
+      href={href}
       onClick={onClick}
-      className="block px-4 py-3 text-text hover:bg-surface-dim rounded-xl transition-colors font-medium"
+      className="block px-3 py-2.5 text-sm font-medium text-[#111111] hover:bg-[#f5f5f5] transition-colors"
     >
       {label}
-    </Link>
+    </a>
   );
 }

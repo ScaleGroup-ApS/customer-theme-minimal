@@ -21,6 +21,10 @@ export const links: Route.LinksFunction = () => [
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
+  {
+    rel: "stylesheet",
+    href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap",
+  },
 ];
 
 export function Layout({ children }: { children: ReactNode }) {
@@ -32,7 +36,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="min-h-screen bg-surface text-text antialiased">
+      <body className="min-h-screen bg-white text-[#444444] antialiased">
         {children}
         <ScrollRestoration />
         <Scripts />
