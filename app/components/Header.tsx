@@ -5,7 +5,7 @@ interface HeaderProps {
   siteName?: string;
 }
 
-export function Header({ siteName = "Demo Virksomhed A/S" }: HeaderProps) {
+export function Header({ siteName = "SYNCRONET" }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
@@ -13,13 +13,14 @@ export function Header({ siteName = "Demo Virksomhed A/S" }: HeaderProps) {
       <div className="max-w-[1100px] mx-auto px-6 h-16 flex items-center justify-between">
         <Link
           to="/"
-          className="text-base font-semibold text-[#111111] tracking-tight hover:opacity-70 transition-opacity"
+          className="flex items-center gap-2 hover:opacity-80 transition-opacity"
         >
-          {siteName}
+          <span className="text-base font-bold text-[#111111] tracking-tight">{siteName}</span>
+          <span className="text-xs font-semibold px-1.5 py-0.5 bg-[#1D4ED8] text-white rounded-sm tracking-wide">ApS</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-10">
-          <NavLink href="#ydelser" label="Ydelser" />
+          <NavLink href="#platform" label="Platform" />
           <NavLink href="#om-os" label="Om os" />
           <NavLink href="#kontakt" label="Kontakt" />
         </nav>
@@ -27,9 +28,9 @@ export function Header({ siteName = "Demo Virksomhed A/S" }: HeaderProps) {
         <div className="hidden md:block">
           <a
             href="#kontakt"
-            className="inline-flex items-center px-5 py-2.5 bg-[#111111] text-white text-sm font-medium hover:opacity-85 transition-opacity"
+            className="inline-flex items-center px-5 py-2.5 bg-[#1D4ED8] text-white text-sm font-medium hover:bg-[#1e40af] transition-colors rounded-sm"
           >
-            Kontakt os
+            Kom i gang
           </a>
         </div>
 
@@ -51,16 +52,16 @@ export function Header({ siteName = "Demo Virksomhed A/S" }: HeaderProps) {
       {mobileOpen && (
         <div className="md:hidden bg-white border-t border-[#e5e5e5]">
           <nav className="max-w-[1100px] mx-auto px-6 py-4 flex flex-col gap-1">
-            <MobileLink href="#ydelser" label="Ydelser" onClick={() => setMobileOpen(false)} />
+            <MobileLink href="#platform" label="Platform" onClick={() => setMobileOpen(false)} />
             <MobileLink href="#om-os" label="Om os" onClick={() => setMobileOpen(false)} />
             <MobileLink href="#kontakt" label="Kontakt" onClick={() => setMobileOpen(false)} />
             <div className="pt-3">
               <a
                 href="#kontakt"
                 onClick={() => setMobileOpen(false)}
-                className="block text-center px-5 py-3 bg-[#111111] text-white text-sm font-medium"
+                className="block text-center px-5 py-3 bg-[#1D4ED8] text-white text-sm font-medium rounded-sm"
               >
-                Kontakt os
+                Kom i gang
               </a>
             </div>
           </nav>
